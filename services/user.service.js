@@ -1,15 +1,29 @@
 import { UserModel } from "../model/user.model.js";
 
 export const createUser = async (payload) => {
-    const { dateOfBirth, ...rest } = payload
+    try {     
+        const { dateOfBirth, ...rest } = payload
+    
+        // fazer validação para a data de nascimento...
+        console.log(dateOfBirth);
+    
+        const user = await UserModel.create({
+            ...rest,
+            dateOfBirth
+        })
+    
+        return user;
+    } catch (error) {
+        throw error;
+    }
+}
 
-    // fazer validação para a data de nascimento...
-    console.log(dateOfBirth);
+export const listUsers = async () => {
+    try {
+        const users = await UserModel.find();
 
-    const user = await UserModel.create({
-        ...rest,
-        dateOfBirth
-    })
-
-    return user;
+        return users;
+    } catch (error) {
+        throw error;
+    }
 }
